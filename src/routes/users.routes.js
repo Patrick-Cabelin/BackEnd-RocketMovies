@@ -6,5 +6,6 @@ const userController = new UserController()
 
 
 userRoute.post('/', userController.Create)
+userRoute.put('/:user_id', userController.Update)
 
 module.exports = userRoute
