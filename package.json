@@ -1,0 +1,25 @@
+{
+  "name": "backend-rocketmovies",
+  "version": "1.0.0",
+  "description": "Um o backend em node.js do projeto Rocketmovies, um serviço/aplicativo de coletânea de filmes que o usuário cataloga ",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js",
+    "migrate":"knex migrate:latest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "knex": "^2.4.2",
+    "sqlite": "^4.1.2",
+    "sqlite3": "^5.0.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
