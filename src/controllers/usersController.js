@@ -1,7 +1,9 @@
 const {hash , compare} = require('bcryptjs')
+
 const sqlConnection= require('../database/sqlite')
 const AppError = require('../utils/AppError.js')
-class UserController{
+
+class UsersController{
     async Create(request, response){
         const database = await sqlConnection()
 
@@ -14,7 +16,7 @@ class UserController{
                 
         await database.run('INSERT INTO users (name, email, password) VALUES (?,?,?)', [name, email, passwordEncrypted])
         
-        response.json()
+        return response.json()
     }
 
     async Update(request, response){
@@ -37,7 +39,8 @@ class UserController{
 
         if(password && old_password){
             const old_passwordMatch = await compare(old_password, user.password)
-            if(old_passwordMatch) throw AppError('Senha Antiga incorreta')
+            console.log(password,old_passwordMatch ,old_password)
+            if(!old_passwordMatch) throw new AppError('Senha Antiga incorreta')
            
             user.password = await hash(password, 8)
         }
@@ -54,6 +57,16 @@ class UserController{
         `, [user.name, user.email, user.password, user_id]);
         return response.json()
     }
+
+    async Delete(request, response){
+        const database = await sqlConnection()
+        const { user_id } = request.params
+
+        await database.get('DELETE FROM users WHERE id = ?',[user_id])
+        
+        return response.json()
+    }
+
 }
 
-module.exports = UserController
+module.exports = UsersController
