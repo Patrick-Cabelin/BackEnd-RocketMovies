@@ -23,9 +23,9 @@ class UsersController{
         const database = await sqlConnection()
 
         const {name, email, password, old_password} = request.body
-        const {user_id}= request.params
+        const id= request.user.id
       
-        const user = await database.get('SELECT * FROM users WHERE id = ?',[user_id])
+        const user = await database.get('SELECT * FROM users WHERE id = ?',[id])
         const newEmailOfUser = await database.get('SELECT * FROM users WHERE email = ?',[email])
         
         if(!user) throw new AppError('Usuário não existe')
@@ -39,7 +39,7 @@ class UsersController{
 
         if(password && old_password){
             const old_passwordMatch = await compare(old_password, user.password)
-            console.log(password,old_passwordMatch ,old_password)
+            
             if(!old_passwordMatch) throw new AppError('Senha Antiga incorreta')
            
             user.password = await hash(password, 8)
@@ -54,15 +54,15 @@ class UsersController{
             password = ?,
             updated_at = DATETIME('NOW')
             WHERE id  = ?
-        `, [user.name, user.email, user.password, user_id]);
+        `, [user.name, user.email, user.password, id]);
         return response.json()
     }
 
     async Delete(request, response){
         const database = await sqlConnection()
-        const { user_id } = request.params
+        const id = request.user.id
 
-        await database.get('DELETE FROM users WHERE id = ?',[user_id])
+        await database.get('DELETE FROM users WHERE id = ?',[id])
         
         return response.json()
     }
