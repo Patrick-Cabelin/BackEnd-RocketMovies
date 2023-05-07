@@ -4,6 +4,7 @@ const fs = require('fs')
 
 class DiskStorage{
     async SaveFile(file){
+        console.log(file.name)
         await fs.promises.rename(
             path.resolve(uploadConfig.TMP_FOLDER, file),
             path.resolve(uploadConfig.UPLOAD_FOLDER, file)

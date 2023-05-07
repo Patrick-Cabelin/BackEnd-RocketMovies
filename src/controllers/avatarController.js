@@ -4,7 +4,7 @@ const DiskStorage = require('../providers/diskStorage')
 
 class AvatarController{
     async Update(request , response){
-        console.log('af')
+       console.log(12342314)
         const diskstorage = new DiskStorage()
         const user_id = request.user.id
         const avatarFileName = request.file.filename
@@ -16,7 +16,7 @@ class AvatarController{
 
         const filename = await diskstorage.saveFile(avatarFileName)
         user.avatar = filename
-         
+        console.log(filename)
         await knex('users').update(user).where({id : user})
 
         return response.json(user)
