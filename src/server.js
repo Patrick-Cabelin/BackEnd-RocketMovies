@@ -1,7 +1,6 @@
 require('express-async-errors')
 const MigrationsRun = require('./database/sqlite/migrations')
 MigrationsRun()
-
 const cors = require('cors')
 const express = require('express')
 app = express()
@@ -36,5 +35,5 @@ const responseError = (error, request, response, next) => {
 
 app.use(responseError)
 
-const PORT = 3000
+const PORT = 3333
 app.listen(PORT, ()=>console.log(`Servidor em Funcionamento na porta: ${PORT}`))
