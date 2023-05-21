@@ -2,7 +2,7 @@ const { Router }= require('express')
 const moviesRoute = Router()
 
 const authenticator = require('../middleware/authenticator')
-const MoviesController = require('../controllers/MoviesController')
+const MoviesController = require('../controllers/moviesController')
 const moviesController = new MoviesController()
 
 moviesRoute.use(authenticator)
