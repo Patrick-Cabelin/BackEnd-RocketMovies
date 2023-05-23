@@ -59,7 +59,7 @@ class MoviesController{
     async Create(request, response){
         const { title, description, tags , rating } = request.body
         const user_id = request.user.id
-        
+        console.log(title, description, tags )
         const [movies_id] = await knex('movies').insert({
             title,
             description,
