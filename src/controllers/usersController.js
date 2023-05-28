@@ -8,6 +8,7 @@ class UsersController{
         const database = await sqlConnection()
 
         const {name, email, password} = request.body
+    
         const passwordEncrypted = await hash(password,8) 
         
         const userExist = await database.get('SELECT email FROM users WHERE email = ?', [email])
@@ -45,8 +46,6 @@ class UsersController{
             user.password = await hash(password, 8)
         }
             
-            
-
         await database.run(`
             UPDATE users SET 
             name = ?,

@@ -48,7 +48,6 @@ class MoviesController{
         const movie = await knex('movies').where({id}).first()
         const tags = await knex('tags').where({id}).orderBy('name')
 
-      
         return response.json({
             ...movie,
             tags
@@ -59,7 +58,7 @@ class MoviesController{
     async Create(request, response){
         const { title, description, tags , rating } = request.body
         const user_id = request.user.id
-        console.log(title, description, tags )
+ 
         const [movies_id] = await knex('movies').insert({
             title,
             description,
